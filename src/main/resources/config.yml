@@ -1,0 +1,31 @@
+# GuardianAC Configuration
+
+prefix: "&8[&cGuardianAC &c⚔️&8] "
+
+# Configure individual checks here.
+# You can enable/disable checks, change their sensitivity, and define punishments.
+checks:
+  Movement:
+    Fly:
+      enabled: true
+      max-violation: 20
+    Speed:
+      enabled: true
+      max-violation: 20
+  Combat:
+    KillAura:
+      enabled: true
+      max-violation: 20
+    Reach:
+      enabled: true
+      max-violation: 20
+  Player:
+    NoSlow:
+      enabled: true
+      max-violation: 15
+
+# Define the actions to take when a player reaches the max-violation level.
+# You can use placeholders like %player% and %check%.
+punishments:
+  - "warn %player% You have been flagged for cheating (%check%)."
+  - "kick %player% Unfair advantage is not allowed."

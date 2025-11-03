@@ -1,0 +1,21 @@
+name: GuardianAC
+version: '${project.version}'
+main: com.yourdomain.guardianac.GuardianAC
+api-version: '1.21'
+author: YourName
+description: '${project.description}'
+depend: [ProtocolLib]
+
+commands:
+  guardian:
+    description: Main command for GuardianAC.
+    usage: /<command> [reload|toggle|monitor]
+    permission: guardian.admin
+
+permissions:
+  guardian.admin:
+    description: Grants access to all GuardianAC commands.
+    default: op
+  guardian.alerts:
+    description: Allows the player to see violation alerts.
+    default: op

@@ -46,7 +46,7 @@ public class FightBotA extends Check {
 
         if (data.getConsecutiveHits() > 3) score += 2.0;
 
-        data.setCombatActionScore(data.getCombatActionScore() + score);
+        data.setCombatActionScore((int)(data.getCombatActionScore() + score));
 
         if (data.getCombatActionScore() > ACTION_SCORE_THRESHOLD) {
             handleViolation(data, player, 4.0, 15.0, 2.0);

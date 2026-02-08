@@ -135,4 +135,55 @@ public final class MathUtil {
     public static double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
+
+    /**
+     * Calculate the standard deviation of a double array.
+     */
+    public static double standardDeviation(double[] values) {
+        if (values.length < 2) return Double.MAX_VALUE;
+        double mean = 0;
+        for (double v : values) mean += v;
+        mean /= values.length;
+        double variance = 0;
+        for (double v : values) variance += (v - mean) * (v - mean);
+        variance /= values.length;
+        return Math.sqrt(variance);
+    }
+
+    /**
+     * Calculate the mean (average) of a list of numbers.
+     */
+    public static double mean(List<? extends Number> values) {
+        if (values.isEmpty()) return 0.0;
+        double sum = 0;
+        for (Number v : values) sum += v.doubleValue();
+        return sum / values.size();
+    }
+
+    /**
+     * Calculate the variance of a list of numbers.
+     */
+    public static double variance(List<? extends Number> values) {
+        if (values.size() < 2) return 0.0;
+        double avg = mean(values);
+        double sum = 0;
+        for (Number v : values) {
+            double diff = v.doubleValue() - avg;
+            sum += diff * diff;
+        }
+        return sum / values.size();
+    }
+
+    /**
+     * Calculate the GCD of a list of longs using the Euclidean algorithm.
+     * Used for click pattern analysis.
+     */
+    public static double gcd(List<Long> values) {
+        if (values == null || values.isEmpty()) return 0;
+        double result = values.get(0);
+        for (int i = 1; i < values.size(); i++) {
+            result = gcd(result, values.get(i));
+        }
+        return result;
+    }
 }

@@ -411,6 +411,35 @@ public class PlayerData {
     // ── EntityAction Tracking ──
     private int entityActionSpoofCount;
 
+    // ── Extended Tracking Fields (missing in original) ──
+    private long lastPacketTime;
+    private long lastDigStartTime;
+    private long eatStartTime;
+    private String clientBrand = "vanilla";
+    private long lastAnimationTime;
+    private long lastTickTime;
+    private long lastInteractTime;
+    private double expectedHealth;
+    private long lastEntityActionTime;
+    private boolean inBed;
+    private int rotationMismatchStreak;
+    private int rotationFrozenTicks;
+    private boolean blocking;
+    private long lastShiftClickTime;
+    private double lastRecordedHealth;
+    private boolean sneaking;
+    private boolean sprinting;
+    private long lastSlotChangeTime;
+    private boolean horseJumping;
+    private int movePacketCount;
+    private final List<Long> timingDeltas = new ArrayList<>();
+    private int consecutiveEatCount;
+    private long lastEatTime;
+    private long lastMoveTime;
+    private long lastTeleportTime;
+    private long lastInventoryClickTime;
+    private long lastInventoryCloseTime;
+
     // ── ServerCrasher Tracking ──
     private int entitySpawnCount;
     private long entitySpawnWindowStart;
@@ -1190,4 +1219,136 @@ public class PlayerData {
     public void setOverallCombatScore(int v) { this.overallCombatScore = v; }
     public long getCombatSessionStart() { return combatSessionStart; }
     public void setCombatSessionStart(long t) { this.combatSessionStart = t; }
+
+    // ═══ EXTENDED MISSING METHODS ═══
+
+    // Packet time
+    public long getLastPacketTime() { return lastPacketTime; }
+    public void setLastPacketTime(long t) { this.lastPacketTime = t; }
+
+    // Dig start time
+    public long getLastDigStartTime() { return lastDigStartTime; }
+    public void setLastDigStartTime(long t) { this.lastDigStartTime = t; }
+
+    // Eat start time (single value)
+    public long getEatStartTime() { return eatStartTime; }
+    public void setEatStartTime(long t) { this.eatStartTime = t; }
+
+    // Client brand
+    public String getClientBrand() { return clientBrand; }
+    public void setClientBrand(String brand) { this.clientBrand = brand; }
+
+    // Animation time
+    public long getLastAnimationTime() { return lastAnimationTime; }
+    public void setLastAnimationTime(long t) { this.lastAnimationTime = t; }
+
+    // Tick time
+    public long getLastTickTime() { return lastTickTime; }
+    public void setLastTickTime(long t) { this.lastTickTime = t; }
+
+    // Interact time
+    public long getLastInteractTime() { return lastInteractTime; }
+    public void setLastInteractTime(long t) { this.lastInteractTime = t; }
+
+    // Expected health
+    public double getExpectedHealth() { return expectedHealth; }
+    public void setExpectedHealth(double v) { this.expectedHealth = v; }
+
+    // Entity action time
+    public long getLastEntityActionTime() { return lastEntityActionTime; }
+    public void setLastEntityActionTime(long t) { this.lastEntityActionTime = t; }
+
+    // Bed state
+    public boolean isInBed() { return inBed; }
+    public void setInBed(boolean v) { this.inBed = v; }
+
+    // Rotation mismatch streak
+    public int getRotationMismatchStreak() { return rotationMismatchStreak; }
+    public void incrementRotationMismatchStreak() { this.rotationMismatchStreak++; }
+    public void resetRotationMismatchStreak() { this.rotationMismatchStreak = 0; }
+
+    // Rotation frozen ticks
+    public int getRotationFrozenTicks() { return rotationFrozenTicks; }
+    public void incrementRotationFrozenTicks() { this.rotationFrozenTicks++; }
+    public void resetRotationFrozenTicks() { this.rotationFrozenTicks = 0; }
+
+    // Blocking state
+    public boolean isBlocking() { return blocking; }
+    public void setBlocking(boolean v) { this.blocking = v; }
+
+    // Shift click time
+    public long getLastShiftClickTime() { return lastShiftClickTime; }
+    public void setLastShiftClickTime(long t) { this.lastShiftClickTime = t; }
+
+    // Recorded health
+    public double getLastRecordedHealth() { return lastRecordedHealth; }
+    public void setLastRecordedHealth(double v) { this.lastRecordedHealth = v; }
+
+    // Sneaking state
+    public boolean isSneaking() { return sneaking; }
+    public void setSneaking(boolean v) { this.sneaking = v; }
+
+    // Sprinting state
+    public boolean isSprinting() { return sprinting; }
+    public void setSprinting(boolean v) { this.sprinting = v; }
+
+    // Slot change time
+    public long getLastSlotChangeTime() { return lastSlotChangeTime; }
+    public void setLastSlotChangeTime(long t) { this.lastSlotChangeTime = t; }
+
+    // Horse jumping
+    public boolean isHorseJumping() { return horseJumping; }
+    public void setHorseJumping(boolean v) { this.horseJumping = v; }
+
+    // Move packet count
+    public int getMovePacketCount() { return movePacketCount; }
+    public void incrementMovePacketCount() { this.movePacketCount++; }
+    public void resetMovePacketCount() { this.movePacketCount = 0; }
+
+    // Timing deltas and variance
+    public void addTimingDelta(long delta) { timingDeltas.add(delta); if (timingDeltas.size() > 50) timingDeltas.remove(0); }
+    public double getTimingVariance() {
+        if (timingDeltas.size() < 2) return 0.0;
+        double mean = 0;
+        for (long d : timingDeltas) mean += d;
+        mean /= timingDeltas.size();
+        double variance = 0;
+        for (long d : timingDeltas) { double diff = d - mean; variance += diff * diff; }
+        return variance / timingDeltas.size();
+    }
+    public int getTimingSampleCount() { return timingDeltas.size(); }
+
+    // Consecutive eat count
+    public int getConsecutiveEatCount() { return consecutiveEatCount; }
+    public void incrementConsecutiveEatCount() { this.consecutiveEatCount++; }
+    public void resetConsecutiveEatCount() { this.consecutiveEatCount = 0; }
+
+    // Last eat time
+    public long getLastEatTime() { return lastEatTime; }
+    public void setLastEatTime(long t) { this.lastEatTime = t; }
+
+    // Last move time
+    public long getLastMoveTime() { return lastMoveTime; }
+    public void setLastMoveTime(long t) { this.lastMoveTime = t; }
+
+    // Last teleport time
+    public long getLastTeleportTime() { return lastTeleportTime; }
+    public void setLastTeleportTime(long t) { this.lastTeleportTime = t; }
+
+    // Inventory click time
+    public long getLastInventoryClickTime() { return lastInventoryClickTime; }
+    public void setLastInventoryClickTime(long t) { this.lastInventoryClickTime = t; }
+
+    // Inventory close time
+    public long getLastInventoryCloseTime() { return lastInventoryCloseTime; }
+    public void setLastInventoryCloseTime(long t) { this.lastInventoryCloseTime = t; }
+
+    // Alias methods for naming mismatches
+    public void addTargetCycleOrder(int id) { addTargetCycleEntity(id); }
+    public void addRecentReachDistance(double d) { addReachDistance(d); }
+    public boolean isLastOnGround() { return lastOnGround; }
+    public void setInvalidGroundTicks(int v) { this.invalidGroundTicks = v; }
+    public void setSprintToggleCount(int v) { this.sprintToggleCount = v; }
+    public void setLastYaw(float v) { this.lastYaw = v; }
+    public void setLastPitch(float v) { this.lastPitch = v; }
 }

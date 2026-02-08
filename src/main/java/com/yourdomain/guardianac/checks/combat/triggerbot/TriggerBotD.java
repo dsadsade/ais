@@ -33,7 +33,7 @@ public class TriggerBotD extends Check {
         PlayerData data = getPlugin().getPlayerDataManager().getPlayerData(player);
         if (data == null) return;
 
-        List<Long> intervals = data.getAttackIntervals();
+        List<Double> intervals = data.getAttackIntervals();
         if (intervals.size() < MIN_SAMPLES) return;
 
         double stdDev = MathUtil.standardDeviation(intervals);

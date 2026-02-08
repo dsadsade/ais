@@ -33,7 +33,7 @@ public class NoHitDelayB extends Check {
         if (data == null) return;
 
         int noDamageTicks = target.getNoDamageTicks();
-        int lastHurtTime = data.getLastEntityHurtTime();
+        long lastHurtTime = data.getLastEntityHurtTime();
 
         if (noDamageTicks > 0 && noDamageTicks < MIN_NO_DAMAGE_TICKS) {
             if (lastHurtTime > 0 && lastHurtTime < MIN_NO_DAMAGE_TICKS) {

@@ -4,18 +4,22 @@ main: com.yourdomain.guardianac.GuardianAC
 api-version: '1.21'
 author: YourName
 description: '${project.description}'
-depend: [ProtocolLib]
+softdepend: [ProtocolLib]
 
 commands:
   guardian:
-    description: Main command for GuardianAC.
-    usage: /<command> [reload|toggle|monitor]
+    description: Main command for GuardianAC. Opens the GUI control panel.
+    usage: /<command> [gui|reload|toggle|alerts|status|reset|info|help]
     permission: guardian.admin
+    aliases: [gac, anticheat]
 
 permissions:
   guardian.admin:
-    description: Grants access to all GuardianAC commands.
+    description: Grants access to all GuardianAC commands and the GUI.
     default: op
   guardian.alerts:
     description: Allows the player to see violation alerts.
     default: op
+  guardian.bypass:
+    description: Bypasses all anticheat checks.
+    default: false

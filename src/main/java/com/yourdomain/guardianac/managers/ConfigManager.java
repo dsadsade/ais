@@ -13,13 +13,9 @@ public class ConfigManager {
     }
 
     public void loadConfig() {
-        // This saves the default config.yml from the JAR to the plugin's folder if it doesn't exist
         plugin.saveDefaultConfig();
-        // This reloads the config from the file
         plugin.reloadConfig();
-        // This gets the reloaded config
         config = plugin.getConfig();
-        // Set defaults if they are missing
         config.options().copyDefaults(true);
         plugin.saveConfig();
     }
@@ -30,5 +26,13 @@ public class ConfigManager {
 
     public boolean isCheckEnabled(String checkName) {
         return config.getBoolean("checks." + checkName + ".enabled", true);
+    }
+
+    public long getViolationDecayIntervalMs() {
+        return config.getLong("violation-decay.interval-seconds", 30) * 1000;
+    }
+
+    public long getViolationDecayAfterMs() {
+        return config.getLong("violation-decay.decay-after-seconds", 60) * 1000;
     }
 }

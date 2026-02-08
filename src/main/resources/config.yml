@@ -1,31 +1,1095 @@
+# ──────────────────────────────────────────
 # GuardianAC Configuration
+# AntiCheat for Minecraft 1.21.1
+# ──────────────────────────────────────────
 
-prefix: "&8[&cGuardianAC &c⚔️&8] "
+prefix: "&8[&c&lGuardianAC&8] "
 
-# Configure individual checks here.
-# You can enable/disable checks, change their sensitivity, and define punishments.
+# ──────────────────────────────────────────
+# Violation Decay Settings
+# Violations are automatically reduced over time to prevent
+# players from being permanently flagged due to occasional false positives.
+# ──────────────────────────────────────────
+violation-decay:
+  # How often (in seconds) the decay system runs
+  interval-seconds: 30
+  # How long (in seconds) a violation must be stale before it decays
+  decay-after-seconds: 60
+
+# ──────────────────────────────────────────
+# Check Configuration
+# Enable/disable checks and set their max-violation thresholds.
+# When a player hits max-violation, the punishments below are executed.
+#
+# Combat checks use a Vulcan-style sub-check system (A, B, C...)
+# Each sub-check targets a specific detection method.
+# ──────────────────────────────────────────
 checks:
   Movement:
     Fly:
       enabled: true
-      max-violation: 20
+      max-violation: 15
     Speed:
       enabled: true
       max-violation: 20
+    Scaffold:
+      enabled: true
+      max-violation: 10
+    Step:
+      enabled: true
+      max-violation: 12
+    LongJump:
+      enabled: true
+      max-violation: 12
+    InventoryMove:
+      enabled: true
+      max-violation: 10
+    ElytraFly:
+      enabled: true
+      max-violation: 12
+    BoatFly:
+      enabled: true
+      max-violation: 10
+    AntiVoid:
+      enabled: true
+      max-violation: 10
+    Blink:
+      enabled: true
+      max-violation: 10
+    NoWeb:
+      enabled: true
+      max-violation: 12
+    HighJump:
+      enabled: true
+      max-violation: 12
+    VClip:
+      enabled: true
+      max-violation: 8
+    Strafe:
+      enabled: true
+      max-violation: 12
+    EntitySpeed:
+      enabled: true
+      max-violation: 10
+    InvalidSprint:
+      enabled: true
+      max-violation: 10
+    AirJump:
+      enabled: true
+      max-violation: 10
+    Spider:
+      enabled: true
+      max-violation: 10
+    Glide:
+      enabled: true
+      max-violation: 10
+    FastClimb:
+      enabled: true
+      max-violation: 10
+    BunnyHop:
+      enabled: true
+      max-violation: 12
+    NoRotate:
+      enabled: true
+      max-violation: 12
+    WallPhase:
+      enabled: true
+      max-violation: 10
+    NoSlowdown:
+      enabled: true
+      max-violation: 12
+    JesusFloat:
+      enabled: true
+      max-violation: 10
+    MotionSpoof:
+      enabled: true
+      max-violation: 10
+    # ── Flight A-F ──
+    Flight:
+      A:
+        enabled: true
+        max-violation: 12
+      B:
+        enabled: true
+        max-violation: 12
+      C:
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+    # ── PhaseWalk A-C ──
+    PhaseWalk:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── NoSlowMotion A-C ──
+    NoSlowMotion:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── FastStair A-B ──
+    FastStair:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── AntiSneak A-B ──
+    AntiSneak:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── GravityOverride A-C ──
+    GravityOverride:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── AntiSlip A-B ──
+    AntiSlip:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── Teleport A-D ──
+    Teleport:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+      C:
+        enabled: true
+        max-violation: 8
+      D:
+        enabled: true
+        max-violation: 8
+    # ── AutoJump A-B ──
+    AutoJump:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── WaterWalk A-B ──
+    WaterWalk:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── SafeWalk A-B ──
+    SafeWalk:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── BoatSpeed A-B ──
+    BoatSpeed:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── FastSneak A-B ──
+    FastSneak:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── MovementPrediction A-B ──
+    MovementPrediction:
+      A:
+        enabled: true
+        max-violation: 12
+      B:
+        enabled: true
+        max-violation: 12
+    # ── PacketMotion A-B ──
+    PacketMotion:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── HorseJump A-B ──
+    HorseJump:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── FastSwim A-C ──
+    FastSwim:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── Parkour A-B ──
+    Parkour:
+      A:
+        enabled: true
+        max-violation: 12
+      B:
+        enabled: true
+        max-violation: 12
+    # ── GroundSpoof A-C ──
+    GroundSpoof:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+
   Combat:
+    # ── KillAura A-J ──
     KillAura:
-      enabled: true
-      max-violation: 20
+      A:
+        # Rotation snap detection — sudden large aim snaps on attack tick
+        enabled: true
+        max-violation: 15
+      B:
+        # Hit consistency — suspiciously uniform attack timing intervals
+        enabled: true
+        max-violation: 15
+      C:
+        # Angle/FOV check — hitting entities outside field of view
+        enabled: true
+        max-violation: 12
+      D:
+        # Multi-aura — rapid target switching between many entities
+        enabled: true
+        max-violation: 12
+      E:
+        # GCD pattern — mouse sensitivity consistency analysis
+        enabled: true
+        max-violation: 15
+      F:
+        # Hit accuracy — impossibly high swing-to-hit ratio
+        enabled: true
+        max-violation: 15
+      G:
+        # Post-rotation snap-back — snapping aim back after hitting
+        enabled: true
+        max-violation: 12
+      H:
+        # AutoBlock — blocking between hits impossibly fast
+        enabled: true
+        max-violation: 12
+      I:
+        # Sprint reset — impossible sprint toggling for crits
+        enabled: true
+        max-violation: 12
+      J:
+        # Mouse acceleration — inhuman aim acceleration patterns
+        enabled: true
+        max-violation: 15
+      K:
+        enabled: true
+        max-violation: 12
+      L:
+        enabled: true
+        max-violation: 12
+      M:
+        enabled: true
+        max-violation: 12
+      N:
+        enabled: true
+        max-violation: 12
+      O:
+        enabled: true
+        max-violation: 12
+      P:
+        enabled: true
+        max-violation: 12
+      Q:
+        enabled: true
+        max-violation: 12
+      R:
+        enabled: true
+        max-violation: 12
+      S:
+        enabled: true
+        max-violation: 12
+      T:
+        enabled: true
+        max-violation: 12
+      U:
+        enabled: true
+        max-violation: 12
+      V:
+        enabled: true
+        max-violation: 12
+
+    # ── Reach A-J ──
     Reach:
+      A:
+        # Single hit distance — measures hit distance with ping buffer
+        enabled: true
+        max-violation: 15
+      B:
+        # Rolling average — analyzes average reach over many hits
+        enabled: true
+        max-violation: 15
+      C:
+        # Moving target — compensates for target movement prediction
+        enabled: true
+        max-violation: 15
+      D:
+        # Vertical reach — detects impossible Y-axis hit distances
+        enabled: true
+        max-violation: 15
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+      G:
+        enabled: true
+        max-violation: 12
+      H:
+        enabled: true
+        max-violation: 12
+      I:
+        enabled: true
+        max-violation: 12
+      J:
+        enabled: true
+        max-violation: 12
+
+    # ── Velocity A-G ──
+    Velocity:
+      A:
+        # Horizontal knockback — checks horizontal movement after hit
+        enabled: true
+        max-violation: 15
+      B:
+        # Vertical knockback — checks upward movement after hit
+        enabled: true
+        max-violation: 15
+      C:
+        # Percentage-based — ratio of actual vs expected knockback
+        enabled: true
+        max-violation: 15
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+      G:
+        enabled: true
+        max-violation: 12
+
+    # ── AutoClicker A-G ──
+    AutoClicker:
+      A:
+        # CPS rate — clicks per second counting
+        enabled: true
+        max-violation: 10
+      B:
+        # Click consistency — detects robotic equal-interval clicking
+        enabled: true
+        max-violation: 12
+      C:
+        # Double-click pattern — detects inhuman double-click regularity
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+      G:
+        enabled: true
+        max-violation: 12
+
+    # ── AimAssist A-G ──
+    AimAssist:
+      A:
+        # Smooth aim — detects unnaturally low rotation deviation
+        enabled: true
+        max-violation: 12
+      B:
+        # Snap correction — detects rapid aim snaps toward targets
+        enabled: true
+        max-violation: 12
+      C:
+        # Constant rotation — detects linear interpolation aiming
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+      G:
+        enabled: true
+        max-violation: 12
+
+    # ── HitBox A-F ──
+    HitBox:
+      A:
+        # Angle check — hitting outside normal aim cone
+        enabled: true
+        max-violation: 12
+      B:
+        # Ray trace — ray miss with damage registered
+        enabled: true
+        max-violation: 12
+      C:
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+
+    # ── Aimbot A-H ──
+    Aimbot:
+      A:
+        # Aim lock — perfect target locking with inhuman precision
+        enabled: true
+        max-violation: 12
+      B:
+        # Predictive aim — aiming at target's predicted future position
+        enabled: true
+        max-violation: 12
+      C:
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+      E:
+        enabled: true
+        max-violation: 12
+      F:
+        enabled: true
+        max-violation: 12
+      G:
+        enabled: true
+        max-violation: 12
+      H:
+        enabled: true
+        max-violation: 12
+
+    # ── Misc Combat ──
+    Criticals:
       enabled: true
-      max-violation: 20
+      max-violation: 10
+    FastBow:
+      enabled: true
+      max-violation: 10
+    NoSwing:
+      enabled: true
+      max-violation: 12
+    Backtrack:
+      enabled: true
+      max-violation: 12
+    FastProjectile:
+      enabled: true
+      max-violation: 10
+    MultiAura:
+      enabled: true
+      max-violation: 10
+    TargetStrafe:
+      enabled: true
+      max-violation: 12
+    WTap:
+      enabled: true
+      max-violation: 10
+    NoSlowBow:
+      enabled: true
+      max-violation: 10
+    AutoSwitch:
+      enabled: true
+      max-violation: 10
+    TPAura:
+      enabled: true
+      max-violation: 8
+    AntiKB:
+      enabled: true
+      max-violation: 10
+    ClickAura:
+      enabled: true
+      max-violation: 8
+    SilentAim:
+      enabled: true
+      max-violation: 10
+    HitRate:
+      enabled: true
+      max-violation: 12
+    SwingFrequency:
+      enabled: true
+      max-violation: 10
+    WeaponSwitch:
+      enabled: true
+      max-violation: 10
+
+    # ── AutoBlock A-C ──
+    AutoBlock:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── TriggerBot A-D ──
+    TriggerBot:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+      D:
+        enabled: true
+        max-violation: 10
+    # ── ReducedKB A-C ──
+    ReducedKB:
+      A:
+        enabled: true
+        max-violation: 12
+      B:
+        enabled: true
+        max-violation: 12
+      C:
+        enabled: true
+        max-violation: 12
+    # ── SprintReset A-C ──
+    SprintReset:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── NoHitDelay A-C ──
+    NoHitDelay:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── HitModifier A-C ──
+    HitModifier:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── FightBot A-C ──
+    FightBot:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── AttackAura A-C ──
+    AttackAura:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── DamageIndicator A-C ──
+    DamageIndicator:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── ClickPattern A-D ──
+    ClickPattern:
+      A:
+        enabled: true
+        max-violation: 12
+      B:
+        enabled: true
+        max-violation: 12
+      C:
+        enabled: true
+        max-violation: 12
+      D:
+        enabled: true
+        max-violation: 12
+
   Player:
     NoSlow:
       enabled: true
-      max-violation: 15
+      max-violation: 12
+    NoFall:
+      enabled: true
+      max-violation: 10
+    FastEat:
+      enabled: true
+      max-violation: 10
+    FastBreak:
+      enabled: true
+      max-violation: 12
+    FastPlace:
+      enabled: true
+      max-violation: 12
+    ChestStealer:
+      enabled: true
+      max-violation: 10
+    Nuker:
+      enabled: true
+      max-violation: 8
 
-# Define the actions to take when a player reaches the max-violation level.
-# You can use placeholders like %player% and %check%.
+    # ── BadPackets A-D ──
+    BadPackets:
+      A:
+        # Impossible pitch — pitch values outside ±90 degrees
+        enabled: true
+        max-violation: 5
+      B:
+        # Impossible position — NaN, Infinity, or extreme coordinates
+        enabled: true
+        max-violation: 5
+      C:
+        # Ground spoof — claiming to be on ground while airborne
+        enabled: true
+        max-violation: 12
+      D:
+        # Impossible rotation — inhuman rotation speed
+        enabled: true
+        max-violation: 10
+      E:
+        enabled: true
+        max-violation: 10
+      F:
+        enabled: true
+        max-violation: 10
+      G:
+        enabled: true
+        max-violation: 10
+      H:
+        enabled: true
+        max-violation: 10
+    AutoArmor:
+      enabled: true
+      max-violation: 10
+    AutoTotem:
+      enabled: true
+      max-violation: 8
+    Regen:
+      enabled: true
+      max-violation: 10
+    AntiHunger:
+      enabled: true
+      max-violation: 10
+    GhostHand:
+      enabled: true
+      max-violation: 8
+    AutoTool:
+      enabled: true
+      max-violation: 10
+    Derp:
+      enabled: true
+      max-violation: 8
+    AutoFish:
+      enabled: true
+      max-violation: 12
+    InventoryClick:
+      enabled: true
+      max-violation: 10
+    SkinBlinker:
+      enabled: true
+      max-violation: 10
+    AntiAFK:
+      enabled: true
+      max-violation: 15
+    FastHeal:
+      enabled: true
+      max-violation: 8
+    FastCraft:
+      enabled: true
+      max-violation: 10
+    PortalGlitch:
+      enabled: true
+      max-violation: 8
+    ContainerAction:
+      enabled: true
+      max-violation: 10
+    # ── Inventory A-E ──
+    Inventory:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+      D:
+        enabled: true
+        max-violation: 10
+      E:
+        enabled: true
+        max-violation: 10
+    # ── Animation A-B ──
+    Animation:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── ImpossibleSlot A-B ──
+    ImpossibleSlot:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+    # ── EntityAction A-E ──
+    EntityAction:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+      D:
+        enabled: true
+        max-violation: 10
+      E:
+        enabled: true
+        max-violation: 10
+    # ── NoRotation A-B ──
+    NoRotation:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── ActionSpoof A-C ──
+    ActionSpoof:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── PacketSpam A-C ──
+    PacketSpam:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+      C:
+        enabled: true
+        max-violation: 8
+    # ── Protocol A-E ──
+    Protocol:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+      C:
+        enabled: true
+        max-violation: 8
+      D:
+        enabled: true
+        max-violation: 8
+      E:
+        enabled: true
+        max-violation: 8
+    # ── Interact A-C ──
+    Interact:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+      C:
+        enabled: true
+        max-violation: 10
+    # ── Timing A-B ──
+    Timing:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+    # ── HealthSpoof A-B ──
+    HealthSpoof:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+    # ── AutoEat A-B ──
+    AutoEat:
+      A:
+        enabled: true
+        max-violation: 10
+      B:
+        enabled: true
+        max-violation: 10
+
+  Exploit:
+    Timer:
+      enabled: true
+      max-violation: 10
+    Phase:
+      enabled: true
+      max-violation: 5
+    Jesus:
+      enabled: true
+      max-violation: 10
+    ChatSpam:
+      enabled: true
+      max-violation: 8
+    CommandSpam:
+      enabled: true
+      max-violation: 8
+    ItemSpam:
+      enabled: true
+      max-violation: 8
+    IllegalBlock:
+      enabled: true
+      max-violation: 8
+    PingSpoof:
+      enabled: true
+      max-violation: 15
+    Crasher:
+      enabled: true
+      max-violation: 5
+    XrayDetector:
+      enabled: true
+      max-violation: 15
+    Tower:
+      enabled: true
+      max-violation: 10
+    PacketFlood:
+      enabled: true
+      max-violation: 8
+    FreeCam:
+      enabled: true
+      max-violation: 12
+    AntiLevitation:
+      enabled: true
+      max-violation: 10
+    ChestAura:
+      enabled: true
+      max-violation: 8
+    Disabler:
+      enabled: true
+      max-violation: 12
+    BookExploit:
+      enabled: true
+      max-violation: 5
+    NameSpoof:
+      enabled: true
+      max-violation: 5
+    Baritone:
+      enabled: true
+      max-violation: 15
+    SelfDamage:
+      enabled: true
+      max-violation: 8
+    WorldDownloader:
+      enabled: true
+      max-violation: 5
+    ExploitFixer:
+      enabled: true
+      max-violation: 8
+    MemoryFlood:
+      enabled: true
+      max-violation: 5
+    InvalidSlot:
+      enabled: true
+      max-violation: 8
+    # ── ServerCrasher A-F ──
+    ServerCrasher:
+      A:
+        enabled: true
+        max-violation: 5
+      B:
+        enabled: true
+        max-violation: 5
+      C:
+        enabled: true
+        max-violation: 5
+      D:
+        enabled: true
+        max-violation: 5
+      E:
+        enabled: true
+        max-violation: 5
+      F:
+        enabled: true
+        max-violation: 5
+    # ── DupeDetect A-D ──
+    DupeDetect:
+      A:
+        enabled: true
+        max-violation: 5
+      B:
+        enabled: true
+        max-violation: 5
+      C:
+        enabled: true
+        max-violation: 5
+      D:
+        enabled: true
+        max-violation: 5
+    # ── EntityExploit A-C ──
+    EntityExploit:
+      A:
+        enabled: true
+        max-violation: 8
+      B:
+        enabled: true
+        max-violation: 8
+      C:
+        enabled: true
+        max-violation: 8
+    # ── NBTExploit A-C ──
+    NBTExploit:
+      A:
+        enabled: true
+        max-violation: 5
+      B:
+        enabled: true
+        max-violation: 5
+      C:
+        enabled: true
+        max-violation: 5
+    # ── PayloadExploit A ──
+    PayloadExploit:
+      A:
+        enabled: true
+        max-violation: 5
+    # ── ChunkExploit A-B ──
+    ChunkExploit:
+      A:
+        enabled: true
+        max-violation: 5
+      B:
+        enabled: true
+        max-violation: 5
+
+# ──────────────────────────────────────────
+# Punishment Configuration
+# Commands executed when a player reaches the max-violation level for any check.
+# Placeholders:
+#   %player% - the flagged player's name
+#   %check%  - the check that triggered the punishment
+# ──────────────────────────────────────────
 punishments:
-  - "warn %player% You have been flagged for cheating (%check%)."
-  - "kick %player% Unfair advantage is not allowed."
+  - "kick %player% &c[GuardianAC] &7Unfair advantage detected: &c%check%"

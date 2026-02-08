@@ -29,7 +29,7 @@ public class PunishmentManager {
         });
     }
 
-    public int getMaxViolations(String checkType, String checkName) {
-        return plugin.getConfig().getInt("checks." + checkType + "." + checkName + ".max-violation", 20);
+    public int getMaxViolations(String configKey) {
+        return plugin.getConfig().getInt("checks." + configKey + ".max-violation", 20);
     }
 }
